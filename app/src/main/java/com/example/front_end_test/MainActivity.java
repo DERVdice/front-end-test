@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public class Parse extends AsyncTask<String, Void, String>{
+    public class Parse extends AsyncTask<String, Void, String> {
         @Override
-        protected String doInBackground(String... arg){
+        protected String doInBackground(String... arg) {
             Document doc;
             try {
                 // Спарсили html страницу в документ
@@ -63,26 +63,24 @@ public class MainActivity extends AppCompatActivity {
                 // Вытащили блоки, содержащие вакансии
                 middle_block = doc.select(".vacancy-serp-item");
 
-                for (Element element : middle_block){   //.select(".g-user-content")
+                for (Element element : middle_block) {   //.select(".g-user-content")
                     arrayList.add(element.select(".resume-search-item__name").text());                                   // Вакансия
                     arrayList.add(element.select(".vacancy-serp-item__compensation").text());                            // Зарплата
                     arrayList.add(element.select(".bloko-link_secondary").text());                                       // Компания
-                    arrayList.add(element.select(".vacancy-serp__vacancy_snippet_responsibility").text());               // Описание вакансии
                     arrayList.add(element.select("[data-qa=vacancy-serp__vacancy_snippet_responsibility]").text());      // Задачи
                     arrayList.add(element.select("[data-qa=vacancy-serp__vacancy_snippet_requirement]").text());         // Требования
                     arrayList.add(element.select("[data-qa=vacancy-serp__vacancy-address]").text());                     // Город
-                    arrayList.add(element.select("[data-qa=vacancy-serp__vacancy-title]").attr("href"));      // Ссылка
+                    arrayList.add(element.select("[data-qa=vacancy-serp__vacancy-title]").attr("href"));      // Ссылка на страницу вакансии
                     arrayList.add("-----------------------------------------------");
                 }
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;
         }
 
         @Override
-        protected void onPostExecute(String Result){
+        protected void onPostExecute(String Result) {
             main_list.setAdapter(arrayAdapter);
         }
     }
