@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clipToPadding="true"
+    android:background="@color/colorPrimary"
+    android:orientation="vertical"
+    android:paddingLeft="4dp"
+    android:paddingTop="4dp"
+    android:paddingRight="4dp"
+    android:paddingBottom="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/SingleItemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:drawable/dialog_holo_light_frame"
-        android:minHeight="100dp">
+        android:background="@drawable/main_list_item_background"
+        android:elevation="4dp"
+        android:minHeight="100dp"
+        android:paddingLeft="4dp"
+        android:paddingTop="2dp"
+        android:paddingRight="4dp"
+        android:paddingBottom="2dp">
 
         <TextView
             android:id="@+id/vacancy_name"
@@ -22,6 +35,7 @@
             android:layout_marginRight="4dp"
             android:text="Machine Learning developer"
             android:textAllCaps="false"
+            android:textSize="18sp"
             app:fontFamily="sans-serif-condensed-medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +51,7 @@
             android:layout_marginEnd="2dp"
             android:layout_marginRight="2dp"
             android:text="Проектирование и разработка программного обеспечения и сервисов с использованием машинного обучения. Изучение, применение новых методик, исследований в области машинного обучения..."
-            android:textSize="10sp"
+            android:textSize="14sp"
             app:fontFamily="sans-serif-condensed"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +68,7 @@
             android:layout_marginRight="2dp"
             android:layout_marginBottom="4dp"
             android:text="Высшее образование с направлением математической статистики/теории вероятности/кибернетики. Знание техник, алгоритмов машинного обучения и их применение (знание подВысшее образование с направлением математической статистики/теории вероятности/кибернетики. Знание техник, алгоритмов машинного обучения и их применение (знание подходов к...ходов к..."
-            android:textSize="10sp"
+            android:textSize="14sp"
             app:fontFamily="sans-serif-condensed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -79,7 +93,7 @@
             android:layout_marginRight="4dp"
             android:gravity="center_horizontal"
             android:text="150 000-300 000 руб."
-            android:textSize="10sp"
+            android:textSize="14sp"
             app:fontFamily="sans-serif-condensed-medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -96,7 +110,7 @@
             android:layout_marginBottom="4dp"
             android:gravity="center"
             android:text="Калуга"
-            android:textSize="10sp"
+            android:textSize="14sp"
             app:fontFamily="sans-serif-condensed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -108,17 +122,19 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
             android:layout_marginLeft="2dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:text="ИП Асеев Роман Александрович"
-            android:textSize="10sp"
+            android:textSize="14sp"
             app:fontFamily="sans-serif-condensed"
+            app:layout_constraintBottom_toTopOf="@+id/address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/payment" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+</FrameLayout>

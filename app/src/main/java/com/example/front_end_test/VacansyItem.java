@@ -8,14 +8,16 @@ public class VacansyItem {
     private String tasks;
     private String requirements;
     private String link;
+    private String address;
 
-    VacansyItem(String _vacancy_name, String _payment, String _company, String _tasks, String _requirements, String _link){
+    VacansyItem(String _vacancy_name, String _payment, String _company, String _tasks, String _requirements, String _link, String _address){
         vacancy_name = _vacancy_name;
         payment = _payment;
         company = _company;
         tasks = _tasks;
         requirements = _requirements;
         link = _link;
+        address = _address;
     }
 
     public String getVacancy_name() {
@@ -40,5 +42,9 @@ public class VacansyItem {
 
     public String getLink() {
         return link;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }

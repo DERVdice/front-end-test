@@ -1,4 +1,4 @@
-package com.example.mark_5;
+package com.example.front_end_test;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import androidx.annotation.RequiresApi;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
+import com.example.front_end_test.R;
+import com.example.front_end_test.VacancyPageActivity;
 import com.example.front_end_test.VacansyItem;
 
 import java.util.ArrayList;
@@ -64,56 +66,22 @@ public class VacancyItemAdapter extends BaseAdapter {
 
         final VacansyItem Item = objects.get(position);
 
-        viewHolder.Time0.setText(Item.getTime0());
-        viewHolder.Time1.setText(Item.getTime1());
-        viewHolder.Item_Name.setText(Item.getItem_Name());
-        viewHolder.Teacher_Name.setText(Item.getTeacher_Name());
-        viewHolder.Item_Mode.setText(Item.getItem_Mode());
-        viewHolder.Item_Auditorium.setText("ауд. " + Item.getItem_Auditorium());
-        viewHolder.Item_Building.setText("к. " + Item.getItem_Building());
+        viewHolder.vacancy_name.setText(Item.getVacancy_name());
+        viewHolder.tasks.setText(Item.getTasks());
+        viewHolder.requirements.setText(Item.getRequirements());
+        viewHolder.payment.setText(Item.getPayment());
+        viewHolder.address.setText(Item.getAddress());
+        viewHolder.company.setText(Item.getCompany());
 
         final View finalView = convertView;
 
-        if (Item.getTeacher_Mail().equals("")) viewHolder.Mail_button.setVisibility(View.INVISIBLE);
-        else viewHolder.Mail_button.setVisibility(View.VISIBLE);
-
-        if (Item.getTeacher_Phone().equals(""))
-            viewHolder.Phone_button.setVisibility(View.INVISIBLE);
-        else viewHolder.Phone_button.setVisibility(View.VISIBLE);
-
-
-        viewHolder.File_button.setOnClickListener(new View.OnClickListener() {
+        viewHolder.SingleItemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(finalView.getContext(), ItemNoteActivity.class);
-
-                intent.putExtra("Item_Name", Item.getItem_Name());
-                intent.putExtra("Note", Item.getItem_Notes());
-
+                Intent intent = new Intent(finalView.getContext(), VacancyPageActivity.class);
+                intent.putExtra("Link", Item.getLink());
                 intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 finalView.getContext().startActivity(intent);
-            }
-        });
-
-        viewHolder.List_Item_Layout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                viewHolder.List_Item_Layout.setBackground(ContextCompat.getDrawable(finalView.getContext(), R.drawable.ic_mainlistrow_v3_background_picture_flat_selected));
-                return false;
-            }
-        });
-
-        viewHolder.Phone_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(finalView.getContext(), "Номер телефона: " + Item.getTeacher_Phone(), Toast.LENGTH_LONG).show();
-            }
-        });
-
-        viewHolder.Mail_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(finalView.getContext(), "Почта: " + Item.getTeacher_Mail(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -121,22 +89,17 @@ public class VacancyItemAdapter extends BaseAdapter {
     }
 
     private class ViewHolder {
-        final TextView Time0, Time1, Item_Name, Teacher_Name, Item_Mode, Item_Auditorium, Item_Building;
-        final Button File_button, Mail_button, Phone_button;
-        final ConstraintLayout List_Item_Layout;
+        final TextView vacancy_name, tasks, requirements, payment, address, company;
+        final ConstraintLayout SingleItemLayout;
 
         ViewHolder(View view) {
-            Time0 = view.findViewById(R.id.textView_time0_flat);
-            Time1 = view.findViewById(R.id.textView_time1_flat);
-            Item_Name = view.findViewById(R.id.textView_item_name_flat);
-            Teacher_Name = view.findViewById(R.id.textView_item_teacher_flat);
-            Item_Mode = view.findViewById(R.id.textView_item_mode_flat);
-            Item_Auditorium = view.findViewById(R.id.textView_item_auditorium_flat);
-            Item_Building = view.findViewById(R.id.textView_item_building_flat);
-            File_button = view.findViewById(R.id.File_button);
-            Mail_button = view.findViewById(R.id.Mail_button);
-            Phone_button = view.findViewById(R.id.Phone_button);
-            List_Item_Layout = view.findViewById(R.id.Item_layout_flat);
+            vacancy_name = view.findViewById(R.id.vacancy_name);
+            tasks = view.findViewById(R.id.tasks);
+            requirements = view.findViewById(R.id.requirements);
+            payment = view.findViewById(R.id.payment);
+            address = view.findViewById(R.id.address);
+            company = view.findViewById(R.id.company);
+            SingleItemLayout = view.findViewById(R.id.SingleItemLayout);
         }
     }
 }
