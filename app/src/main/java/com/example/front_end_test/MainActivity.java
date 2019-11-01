@@ -21,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText search_box;
     private Boolean search_flag = false;
     private Boolean thread_flag = false;
+    private static ProgressBar progressBar;
 
     // Страница с вакансиями делится на 3 блока: верхний и нижний - оплаченные объявления, средний - обычные
     private Elements middle_block;
@@ -55,17 +57,13 @@ public class MainActivity extends AppCompatActivity {
         View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
+        progressBar = findViewById(R.id.progressBar2);
+        progressBar.setMax((int) count);
+
         main_list = findViewById(R.id.main_list);
         new Parse().execute();
 
         arrayAdapter = new VacancyItemAdapter(this, R.layout.main_list_item_layout, arrayList);
-
-        SQLiteDatabase db = getApplicationContext().openOrCreateDatabase("save.db", MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + "search_results" + " (vacancy_name TEXT, payment TEXT," +
-                "company TEXT, tasks TEXT, requirements TEXT, address TEXT,  link TEXT PRIMARY KEY)");
-
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + "single_vacancy_page" + " (link TEXT PRIMARY KEY, experience TEXT, desription TEXT, publication_date TEXT, skills TEXT)");
-        db.close();
 
         search_box = findViewById(R.id.search_field);
         search_button = findViewById(R.id.search_button);
@@ -78,22 +76,51 @@ public class MainActivity extends AppCompatActivity {
         @RequiresApi(api = Build.VERSION_CODES.O)
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
-                    case R.id.settings_btn:
+            switch (menuItem.getItemId()) {
+                case R.id.settings_btn:
 
-                        break;
+                    break;
 
-                    case R.id.refresh_btn:
-                        if (!thread_flag){ // Защита от нескольких потоков
-                            thread_flag = true;
-                            arrayList.clear();
-                            new Parse().execute();
+                case R.id.refresh_btn:
+                    if (!thread_flag) { // Защита от нескольких потоков
+                        thread_flag = true;
+                        arrayList.clear();
+                        new Parse().execute();
+                    }
+                    break;
+
+                case R.id.graps_btn:
+                    if (!arrayList.isEmpty()) {
+                        // Формируется и передается на новую Activity список, содержащий ссылки на все вакансии из arrayList
+                        // Так же передаются те данные, которые нет смысла парсить повторно (для экономии трафика)
+                        ArrayList<String> linksList = new ArrayList<>();
+                        ArrayList<String> vacancyList = new ArrayList<>();
+                        ArrayList<String> companyList = new ArrayList<>();
+                        ArrayList<String> addressList = new ArrayList<>();
+                        ArrayList<String> paymentList = new ArrayList<>();
+
+                        for (int i = 0; i < arrayList.size(); i++) {
+                            linksList.add(arrayList.get(i).getLink());
+                            vacancyList.add(arrayList.get(i).getVacancy_name());
+                            companyList.add(arrayList.get(i).getCompany());
+                            addressList.add(arrayList.get(i).getAddress());
+                            paymentList.add(arrayList.get(i).getPayment());
                         }
-                        break;
 
-                    case R.id.graps_btn:
+                        Intent intent = new Intent(MainActivity.this, GraphsActivity.class);
 
-                        break;
+                        intent.putExtra("linksList", linksList);
+                        intent.putExtra("vacancyList", vacancyList);
+                        intent.putExtra("companyList", companyList);
+                        intent.putExtra("addressList", addressList);
+                        intent.putExtra("paymentList", paymentList);
+
+                        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(MainActivity.this, "Не хватает данных для построения графиков", Toast.LENGTH_LONG).show();
+                    }
+                    break;
             }
             return true;
         }
@@ -102,39 +129,36 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (search_box.isFocused()){
+        if (search_box.isFocused()) {
             search_box.clearFocus();
-        }
-        else {
+        } else {
             finish();
         }
     }
 
     @SuppressLint("NewApi")
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public void Search(View v){
-        if (search_flag == false){
+    public void Search(View v) {
+        if (search_flag == false) {
             search_button.setBackground(MainActivity.this.getDrawable(R.drawable.ic_close_black_24dp));
             ArrayList<VacansyItem> search_arrayList = new ArrayList<>();
-            for (int i = 0; i< arrayList.size(); i++){
-                if (arrayList.get(i).getVacancy_name().contains(search_box.getText().toString())){
+            for (int i = 0; i < arrayList.size(); i++) {
+                if (arrayList.get(i).getVacancy_name().contains(search_box.getText().toString())) {
                     search_arrayList.add(arrayList.get(i));
                 }
             }
-            if (search_arrayList.isEmpty()){
-                Toast.makeText(this,"Совпадений не найдено", Toast.LENGTH_LONG).show();
+            if (search_arrayList.isEmpty()) {
+                Toast.makeText(this, "Совпадений не найдено", Toast.LENGTH_LONG).show();
                 search_button.setBackground(MainActivity.this.getDrawable(R.drawable.ic_search_black_24dp));
                 arrayAdapter = new VacancyItemAdapter(this, R.layout.main_list_item_layout, arrayList);
                 main_list.setAdapter(arrayAdapter);
                 search_flag = false;
-            }
-            else {
+            } else {
                 arrayAdapter = new VacancyItemAdapter(this, R.layout.main_list_item_layout, search_arrayList);
                 main_list.setAdapter(arrayAdapter);
             }
             search_flag = true;
-        }
-        else {
+        } else {
             search_button.setBackground(MainActivity.this.getDrawable(R.drawable.ic_search_black_24dp));
             search_box.setText("");
             arrayAdapter = new VacancyItemAdapter(this, R.layout.main_list_item_layout, arrayList);
@@ -143,10 +167,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private static void Update_ProgressBar(int count) {
+        progressBar.incrementProgressBy(1);
+        if (progressBar.getProgress() == 1) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
+        if (progressBar.getProgress() == count) {
+            progressBar.setVisibility(View.INVISIBLE);
+            progressBar.setProgress(0);
+        }
+    }
+
+/*
+    private static void Refresh_ProgressBar(){
+        progressBar.setProgress(0);
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+ */
+
     public class Parse extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... arg) {
             Document doc;
+            //Refresh_ProgressBar();
             long counter = Math.round(count);
             while (counter > 0) {
                 for (int i = 0; i < Math.round(Math.ceil(count / 20)); i++) {
@@ -157,7 +201,6 @@ public class MainActivity extends AppCompatActivity {
                                 .userAgent("Mozilla/5.0 (X11;Ubuntu; Linux x86_64; rv:64.0) Gecko/20100101 Firefox/64.0")
                                 .referrer("http://www.google.com")
                                 .get();
-
                         // Вытащили блоки, содержащие вакансии
                         middle_block = doc.select(".vacancy-serp-item");
 
@@ -175,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
                                 arrayList.add(new VacansyItem(t1, t2, t3, t4, t5, t6, t7));
                             } else break;
 
+                            //Update_ProgressBar((int)count);
                             counter--;
                         }
 

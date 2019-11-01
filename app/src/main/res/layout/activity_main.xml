@@ -113,4 +113,15 @@
         app:layout_constraintEnd_toEndOf="@+id/search_field"
         app:layout_constraintTop_toTopOf="@+id/search_field" />
 
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="4dp"
+        android:background="@color/colorPrimary"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topNavigationView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
