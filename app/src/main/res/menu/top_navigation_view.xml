@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/return_back"
+        android:icon="@drawable/ic_arrow_back_black_24dp"
+        android:title="@string/return_back" />
+
+    <item
+        android:id="@+id/space1"
+        android:enabled="false"
+        android:title="@string/prev" />
+
+    <item
+        android:id="@+id/space2"
+        android:enabled="false"
+        android:title="@string/prev" />
+
+    <item
+        android:id="@+id/space3"
+        android:enabled="false"
+        android:title="@string/prev" />
+
+    <item
+        android:id="@+id/space4"
+        android:enabled="false"
+        android:title="@string/prev" />
+</menu>

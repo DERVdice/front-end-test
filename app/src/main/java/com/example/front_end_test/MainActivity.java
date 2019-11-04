@@ -2,22 +2,15 @@ package com.example.front_end_test;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -32,7 +25,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -107,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                             paymentList.add(arrayList.get(i).getPayment());
                         }
 
-                        Intent intent = new Intent(MainActivity.this, GraphsActivity.class);
+                        Intent intent = new Intent(MainActivity.this, StatisticActivity.class);
 
                         intent.putExtra("linksList", linksList);
                         intent.putExtra("vacancyList", vacancyList);

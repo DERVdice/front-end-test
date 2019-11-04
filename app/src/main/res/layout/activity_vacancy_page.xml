@@ -6,77 +6,49 @@
     android:layout_height="match_parent"
     tools:context=".VacancyPageActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Content"
+    <FrameLayout
+        android:id="@+id/shadow_top"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="2dp"
+        android:background="@drawable/shadow_top"
+        android:clipToPadding="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topNavigationView">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.60" />
+    </FrameLayout>
 
-        <TextView
-            android:id="@+id/vacancy_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:text="Machine Learning developer"
-            android:textSize="20sp"
-            app:fontFamily="sans-serif-condensed-medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/topNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:itemIconTint="@color/Material_gray"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/top_navigation_view">
 
         <TextView
-            android:id="@+id/company"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="ИП Асеев Роман Александрович"
-            app:fontFamily="sans-serif-condensed"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vacancy_name" />
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="75dp"
+            android:paddingTop="15dp"
+            android:text="Web страница вакансии"
+            android:textColor="@color/Material_gray"
+            android:textSize="18sp"
+            app:fontFamily="sans-serif-condensed" />
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-        <TextView
-            android:id="@+id/payment"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:gravity="center"
-            android:text="150 000-300 000 руб."
-            app:fontFamily="sans-serif-condensed-medium"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/vacancy_name" />
-
-        <TextView
-            android:id="@+id/descrition"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:text="Проектирование и разработка программного обеспечения и сервисов с использованием машинного обучения. Изучение, применение новых методик, исследований в области машинного обучения...Проектирование и разработка программного обеспечения и сервисов с использованием машинного обучения. Изучение, применение новых методик, исследований в области машинного обучения...Проектирование и разработка программного обеспечения и сервисов с использованием машинного обучения. Изучение, применение новых методик, исследований в области машинного обучения...Проектирование и разработка программного обеспечения и сервисов с использованием машинного обучения. Изучение, применение новых методик, исследований в области машинного обучения...Проектирование и разработка программного обеспечения и сервисов с использованием машинного обучения. Изучение, применение новых методик, исследований в области машинного обучения...Проектирование и разработка программного обеспечения и сервисов с использованием машинного обучения. Изучение, применение новых методик, исследований в области машинного обучения...Проектирование и разработка программного обеспечения и сервисов с использованием машинного обучения. Изучение, применение новых методик, исследований в области машинного обучения...Проектирование и разработка программного обеспечения и сервисов с использованием машинного обучения. Изучение, применение новых методик, исследований в области машинного обучения...Проектирование и разработка программного обеспечения и сервисов с использованием машинного обучения. Изучение, применение новых методик, исследований в области машинного обучения..."
-            app:fontFamily="sans-serif-condensed"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/company" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topNavigationView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

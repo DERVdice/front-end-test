@@ -4,4 +4,10 @@
     <string name="settings">Настройки</string>
     <string name="refresh">Обновить</string>
     <string name="heh">heh</string>
+    <string name="return_back">Назад</string>
+    <string name="prev" />
+
+    <string name="title_activity_fullscreen_grpah">FullscreenGrpahActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
