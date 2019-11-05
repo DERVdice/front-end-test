@@ -10,10 +10,10 @@ Android приложение, собирающее вакансии с сайт�
 - поиск по загруженным вакансиям (Поиск по названию вакансии);
 - обработка полученной информации в виде статистики по количеству объявлений у работодателей среди загруженных вакансий и уровню зарплат 
   (Если ЗП не указана, то на графике она отмечается отрицательным числом -10000);
-  ![Статистика 1](https://github.com/DERVdice/front-end-test/blob/master/images/statisitc_1.jpg)
-  ![Статистика 2](https://github.com/DERVdice/front-end-test/blob/master/images/statistic_2.jpg) 
+![Статистика 1](https://github.com/DERVdice/front-end-test/blob/master/images/statisitc_1.jpg)
+![Статистика 2](https://github.com/DERVdice/front-end-test/blob/master/images/statistic_2.jpg) 
 - просмотр Web страницы вакансии внутри приложения.
-  ![Web страница](https://github.com/DERVdice/front-end-test/blob/master/images/web_page.jpg)
+![Web страница](https://github.com/DERVdice/front-end-test/blob/master/images/web_page.jpg)
   
      
 
