@@ -1,5 +1,5 @@
 # front-end-test
-Android приложение, собирающее вакансии с сайта HeadHunter [ссылка](https://kaluga.hh.ru/search/vacancy?L_is_autosearch=false&area=43&clusters=true&enable_snippets=true&no_magic=true&specialization=1.221&page=) 
+Android приложение, собирающее вакансии с сайта [HeadHunter](https://kaluga.hh.ru/search/vacancy?L_is_autosearch=false&area=43&clusters=true&enable_snippets=true&no_magic=true&specialization=1.221&page=) 
 
 Функционал включает в себя:
 - выбор количества загружаемых вакансий с сайта, с учетом максимально допустимого количества;
