@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".VacancyPageActivity">
 
+    <WebView
+        android:id="@+id/web_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topNavigationView" />
+
     <FrameLayout
         android:id="@+id/shadow_top"
         android:layout_width="match_parent"
@@ -23,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
+        app:elevation="0dp"
         app:itemIconTint="@color/Material_gray"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,10 +53,11 @@
             app:fontFamily="sans-serif-condensed" />
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <WebView
-        android:id="@+id/web_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

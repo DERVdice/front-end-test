@@ -1,30 +1,21 @@
 package com.example.front_end_test;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,7 +24,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static java.util.Map.Entry.comparingByValue;
 import static java.util.stream.Collectors.toMap;
 
 public class StatisticActivity extends AppCompatActivity {
@@ -75,7 +65,8 @@ public class StatisticActivity extends AppCompatActivity {
         //Full_DataBase(linksList.size());
 
         Make_Graph_1();
-        Make_Graphs();
+        Make_Graph_2();
+
         BottomNavigationView Top_menu = findViewById(R.id.topNavigationView);
         Top_menu.setOnNavigationItemSelectedListener(top_navigation_menu);
     }
@@ -94,12 +85,12 @@ public class StatisticActivity extends AppCompatActivity {
     };
 
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void Make_Graph_1() {
         // Построение списка "количество объявлений по работодателям"
-
-        ListView list_1 = findViewById(R.id.statistic_activity_list_one);
-        ArrayList<StatisticActivityListOneItem> arrayList = new ArrayList<>();
+        TextView counter_Text = findViewById(R.id.counter_1);
+        TextView company_Text = findViewById(R.id.company_1);
 
         // Закинули все в hashMap, где Key=Компания Value=Количество объявлений
         Map<String, Integer> companyDictionary = new HashMap<>();
@@ -112,6 +103,7 @@ public class StatisticActivity extends AppCompatActivity {
             }
         }
 
+        // Сортировка по убыванию
         Map<String, Integer> sorted = companyDictionary.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).collect(
                 toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
 
@@ -120,13 +112,9 @@ public class StatisticActivity extends AppCompatActivity {
         Iterator it = sorted.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
-            arrayList.add(new StatisticActivityListOneItem(pair.getKey().toString(), pair.getValue().toString()));
+            counter_Text.setText(counter_Text.getText().toString() + pair.getValue().toString() + '\n');
+            company_Text.setText(company_Text.getText().toString() + pair.getKey().toString() + '\n');
         }
-
-        // Здесь можно добавить сортировку по убыванию
-
-        StatisticActivityListOneItemAdapter arrayAdapter = new StatisticActivityListOneItemAdapter(this, R.layout.statistic_list_item_layout, arrayList);
-        list_1.setAdapter(arrayAdapter);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -168,50 +156,114 @@ public class StatisticActivity extends AppCompatActivity {
         }
     }
 
-    private void Make_Graphs() {
-        // График количества объявлений по компаниям
-        GraphView graph = (GraphView) findViewById(R.id.graph_1);
-        Map<String, String> companyDictionary = new HashMap<>();
-        for (int i = 0; i < companyList.size(); i++) {
-            if (companyDictionary.containsKey(companyList.get(i))) {
-                int counter = Integer.valueOf(companyDictionary.get(companyList.get(i))) + 1;
-                companyDictionary.put(companyList.get(i), String.valueOf(counter));
+    private int Convert_Payment(String string_payment, Boolean lowest_or_highest_payment) {
+        if (string_payment.equals("")) {
+            return -10000;
+        }
+        if (string_payment.charAt(0) != 'о') {
+            if (lowest_or_highest_payment) {
+                return Integer.valueOf(string_payment.substring(string_payment.indexOf("-") + 1, string_payment.length() - 5).replace(" ", ""));
             } else {
-                companyDictionary.put(companyList.get(i), "1");
+                return Integer.valueOf(string_payment.substring(0, string_payment.indexOf("-")).replace(" ", ""));
+            }
+        } else {
+            return Integer.valueOf(string_payment.substring(3, string_payment.length() - 5).replace(" ", ""));
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void Make_Graph_2() {
+        // График количества объявлений по компаниям
+        GraphView graph = findViewById(R.id.graph_1);
+        TextView counter_Text = findViewById(R.id.counter_2);
+        TextView company_Text = findViewById(R.id.company_2);
+
+        // Заполнение списка минимальных зарплат у работодателя
+        Map<String, Integer> minPriceMap = new HashMap<>();
+        for (int i = 0; i < companyList.size(); i++) {
+
+            int price = Convert_Payment(paymentList.get(i), false);
+
+            // если элемент уже есть в Map
+            if (minPriceMap.containsKey(companyList.get(i))) {
+                // если значение в Map больше, то заменяем его текущим price
+                if (minPriceMap.get(companyList.get(i)) > price)
+                    minPriceMap.put(companyList.get(i), price);
+            }
+            // если ключ встречается впервые
+            else {
+                minPriceMap.put(companyList.get(i), price);
             }
         }
 
-        BarGraphSeries<DataPoint> series = new BarGraphSeries<>();
+
+        BarGraphSeries<DataPoint> series_min = new BarGraphSeries<>();
         int x = 0;
-        Iterator it = companyDictionary.entrySet().iterator();
+        Iterator it = minPriceMap.entrySet().iterator();
         while (it.hasNext()) {
             HashMap.Entry pair = (HashMap.Entry) it.next();
             x++;
             int y = Integer.valueOf(pair.getValue().toString());
-            series.appendData(new DataPoint(x, y), true, companyDictionary.size() + 1);
+            series_min.appendData(new DataPoint(x, y), true, minPriceMap.size() + 1);
+
+            counter_Text.setText(counter_Text.getText().toString() + x + '\n');
+            company_Text.setText(company_Text.getText().toString() + pair.getKey().toString() + '\n');
         }
 
-        series.setSpacing(20);
-        series.setColor(R.color.Material_gray);
-        series.setDrawValuesOnTop(true);
-        series.setValuesOnTopColor(R.color.Material_gray);
+        series_min.setSpacing(30);
+        series_min.setColor(R.color.colorPrimary);
 
-        series.setDrawValuesOnTop(true);
+        // Заполнение списка максимальных зарплат у работодателя
+        Map<String, Integer> maxPriceMap = new HashMap<>();
+        for (int i = 0; i < companyList.size(); i++) {
+
+            int price = Convert_Payment(paymentList.get(i), true);
+
+            // если элемент уже есть в Map
+            if (maxPriceMap.containsKey(companyList.get(i))) {
+                // если значение в Map больше, то заменяем его текущим price
+                if (maxPriceMap.get(companyList.get(i)) < price)
+                    maxPriceMap.put(companyList.get(i), price);
+            }
+            // если ключ встречается впервые
+            else {
+                maxPriceMap.put(companyList.get(i), price);
+            }
+        }
+
+        BarGraphSeries<DataPoint> series_max = new BarGraphSeries<>();
+        int x1 = 0;
+        Iterator it1 = maxPriceMap.entrySet().iterator();
+        while (it1.hasNext()) {
+            HashMap.Entry pair = (HashMap.Entry) it1.next();
+            x1++;
+            int y = Integer.valueOf(pair.getValue().toString());
+
+            series_max.appendData(new DataPoint(x1, y), true, maxPriceMap.size() + 1);
+        }
+
+        series_max.setSpacing(30);
+        series_max.setColor(R.color.Material_gray);
+
         // set manual X bounds
         graph.getViewport().setYAxisBoundsManual(true);
-        graph.getViewport().setMinY(0);
-        graph.getViewport().setMaxY(series.getHighestValueY() + 1);
+        graph.getViewport().setMinY(series_min.getLowestValueY());
+        graph.getViewport().setMaxY(series_max.getHighestValueY());
 
         graph.getViewport().setXAxisBoundsManual(true);
         graph.getViewport().setMinX(0);
-        graph.getViewport().setMaxX(companyDictionary.size() + 1);
+        graph.getViewport().setMaxX(minPriceMap.size() + 1);
 
         // enable scaling and scrolling
         graph.getViewport().setScrollable(true);
         //graph.getViewport().setScalable(true);
         //graph.getViewport().setScalableY(true);
-        graph.addSeries(series);
+        graph.addSeries(series_min);
+        graph.addSeries(series_max);
 
+        graph.getGridLabelRenderer().setHorizontalLabelsColor(R.color.Material_gray);
+        graph.getGridLabelRenderer().setVerticalLabelsColor(R.color.Material_gray);
+        graph.getGridLabelRenderer().setTextSize(30);
     }
 
 

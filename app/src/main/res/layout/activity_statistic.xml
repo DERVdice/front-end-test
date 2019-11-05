@@ -26,6 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
+        app:elevation="0dp"
         app:itemIconTint="@color/Material_gray"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,98 +46,145 @@
             app:fontFamily="sans-serif-condensed" />
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
+    <ScrollView
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topNavigationView">
 
-        <TextView
-            android:id="@+id/statistic_item_1"
+        <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
-            android:onClick="item_1_click"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp"
-            android:text="Количество объявлений по работодателям"
-            android:textSize="14sp"
-            app:fontFamily="sans-serif-condensed" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:scrollbars="vertical">
 
-        <FrameLayout
-            android:id="@+id/list_frame"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <ListView
-                android:id="@+id/statistic_activity_list_one"
+            <TextView
+                android:id="@+id/statistic_item_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:footerDividersEnabled="false"
-                android:headerDividersEnabled="false"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
+                android:clickable="true"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                android:onClick="item_1_click"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
                 android:paddingBottom="8dp"
-                android:scrollbars="vertical"
-                android:scrollingCache="false"
-                android:smoothScrollbar="true">
+                android:text="Количество объявлений по работодателям"
+                android:textSize="14sp"
+                app:fontFamily="sans-serif-condensed" />
 
-            </ListView>
-        </FrameLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/list_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
-        <View
-            android:id="@+id/divider5"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#AAAAAA" />
+                <TextView
+                    android:id="@+id/company_1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:lineSpacingExtra="8sp"
+                    app:fontFamily="sans-serif-condensed"
+                    app:layout_constraintEnd_toStartOf="@id/counter_1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/statistic_item_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clickable="true"
-            android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
-            android:onClick="item_2_click"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
-            android:paddingRight="8dp"
-            android:paddingBottom="8dp"
-            android:text="Уровень зарплат по работодателям"
-            android:textSize="14sp"
-            app:fontFamily="sans-serif-condensed" />
+                <TextView
+                    android:id="@+id/counter_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:lineSpacingExtra="8sp"
+                    app:fontFamily="sans-serif-condensed-medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <FrameLayout
-            android:id="@+id/graph_1_frame"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="16dp">
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#AAAAAA" />
 
-            <com.jjoe64.graphview.GraphView
-                android:id="@+id/graph_1"
-                android:layout_width="wrap_content"
-                android:layout_height="250dp"
-                android:paddingLeft="32dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="16dp"
-                android:visibility="visible" />
-        </FrameLayout>
+            <TextView
+                android:id="@+id/statistic_item_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
+                android:onClick="item_2_click"
+                android:paddingLeft="8dp"
+                android:paddingTop="8dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="8dp"
+                android:text="Уровень зарплат по работодателям"
+                android:textSize="14sp"
+                app:fontFamily="sans-serif-condensed" />
 
-        <View
-            android:id="@+id/divider6"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#AAAAAA"
-            android:paddingTop="16dp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/graph_1_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
-    </LinearLayout>
+                <com.jjoe64.graphview.GraphView
+                    android:id="@+id/graph_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:paddingLeft="32dp"
+                    android:paddingRight="16dp"
+                    android:paddingBottom="16dp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/company_2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:lineSpacingExtra="8sp"
+                    app:fontFamily="sans-serif-condensed"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/counter_2"
+                    app:layout_constraintTop_toBottomOf="@+id/graph_1" />
+
+                <TextView
+                    android:id="@+id/counter_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="8dp"
+                    android:lineSpacingExtra="8sp"
+                    app:fontFamily="sans-serif-condensed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/graph_1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/divider6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#AAAAAA"
+                android:paddingTop="16dp" />
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
