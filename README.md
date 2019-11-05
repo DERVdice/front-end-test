@@ -8,10 +8,10 @@ Android приложение, собирающее вакансии с сайт�
   (Если ЗП не указана, то на графике она отмечается отрицательным числом -10000);
 - просмотр Web страницы вакансии внутри приложения.
   
-![Загрузка](https://github.com/DERVdice/front-end-test/blob/master/images/loading.jpg)  
-![Главный экран](https://github.com/DERVdice/front-end-test/blob/master/images/main_view.jpg) 
-![Настройки](https://github.com/DERVdice/front-end-test/blob/master/images/settings_view.jpg) 
+![Загрузка](https://github.com/DERVdice/front-end-test/blob/master/images/loading.jpg)
+![Главный экран](https://github.com/DERVdice/front-end-test/blob/master/images/main_view.jpg)
+![Настройки](https://github.com/DERVdice/front-end-test/blob/master/images/settings_view.jpg)
 
-![Статистика 1](https://github.com/DERVdice/front-end-test/blob/master/images/statisitc_1.jpg)  
-![Статистика 2](https://github.com/DERVdice/front-end-test/blob/master/images/statistic_2.jpg)  
-![Web страница](https://github.com/DERVdice/front-end-test/blob/master/images/web_page.jpg) 
+![Статистика 1](https://github.com/DERVdice/front-end-test/blob/master/images/statisitc_1.jpg)
+![Статистика 2](https://github.com/DERVdice/front-end-test/blob/master/images/statistic_2.jpg)
+![Web страница](https://github.com/DERVdice/front-end-test/blob/master/images/web_page.jpg)
