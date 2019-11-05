@@ -1,7 +1,7 @@
 # front-end-test
-##Android приложение, собирающее вакансии с сайта [HeadHunter](https://kaluga.hh.ru/search/vacancy?L_is_autosearch=false&area=43&clusters=true&enable_snippets=true&no_magic=true&specialization=1.221&page=)
+## Android приложение, собирающее вакансии с сайта [HeadHunter](https://kaluga.hh.ru/search/vacancy?L_is_autosearch=false&area=43&clusters=true&enable_snippets=true&no_magic=true&specialization=1.221&page=)
 
-#[Скачать установочный apk файл](https://github.com/DERVdice/front-end-test/raw/master/install_app.apk)
+# [Скачать установочный apk файл](https://github.com/DERVdice/front-end-test/raw/master/install_app.apk)
 
 Функционал включает в себя:
 - выбор количества загружаемых вакансий с сайта, с учетом максимально допустимого количества;
