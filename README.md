@@ -1,8 +1,6 @@
 # front-end-test
 Android приложение, собирающее вакансии с сайта [HeadHunter](https://kaluga.hh.ru/search/vacancy?L_is_autosearch=false&area=43&clusters=true&enable_snippets=true&no_magic=true&specialization=1.221&page=) 
 
-![гифка](https://github.com/DERVdice/front-end-test/blob/master/images/demonstration.gif)
-
 Функционал включает в себя:
 - выбор количества загружаемых вакансий с сайта, с учетом максимально допустимого количества;
 
@@ -17,10 +15,7 @@ Android приложение, собирающее вакансии с сайт�
 - просмотр Web страницы вакансии внутри приложения.
 
 ![Web страница](https://github.com/DERVdice/front-end-test/blob/master/images/web_page.jpg)
-  
-     
 
 
-     
-
-
+##
+![гифка](https://github.com/DERVdice/front-end-test/blob/master/images/demonstration.gif)
